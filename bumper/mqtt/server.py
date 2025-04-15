@@ -14,6 +14,8 @@ from bumper.mqtt import helper_bot, proxy as mqtt_proxy
 from bumper.utils import db, dns, utils
 from bumper.utils.settings import config as bumper_isc
 
+from bumper.plugins.logger_plugin import log_mqtt_packet
+
 _LOGGER = logging.getLogger(__name__)
 _LOGGER_MESSAGES = logging.getLogger(f"{__name__}.messages")
 _LOGGER_PROXY = logging.getLogger(f"{__name__}.proxy")
@@ -267,6 +269,7 @@ class BumperMQTTServerPlugin:
             data_decoded = (
                 message.data.decode("utf-8", errors="replace") if isinstance(message.data, bytes | bytearray) else message.data
             )
+            log_mqtt_packet(topic, data_decoded, client_id)
 
             if len(topic_split) < 7:
                 _LOGGER_PROXY.warning(f"Received message with invalid topic: {topic}")

@@ -14,6 +14,7 @@ from bumper.utils.settings import config as bumper_isc
 from bumper.web import server as server_web
 from bumper.xmpp import xmpp as server_xmpp
 
+#from bumper.plugins import logger_plugin
 LogHelper()
 
 _LOGGER = logging.getLogger(__name__)
